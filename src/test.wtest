@@ -1,0 +1,30 @@
+import obrero.*
+import obra.*
+
+describe "testeando" {
+	test "test 1" {
+		var albanil1 = new Albanil()
+		var albanil2 = new Albanil()
+		var gasista1 = new Gasista()
+		var gasista2 = new Gasista()
+		var plomero1 = new Plomero()
+		var obra = new Obra()
+		
+		obra.agregarObrero(albanil1)
+		obra.agregarObrero(albanil2)
+		obra.agregarObrero(gasista1)
+		obra.agregarObrero(gasista2)
+		obra.agregarObrero(plomero1)
+		albanil1.tomarLicencia()
+		obra.setLadrillos(1000)
+		obra.setCanios(400)
+		obra.setFosforos(8000)
+		obra.setArandelas(500)
+		obra.iniciarJornada()
+		
+		assert.equals(900 , obra.ladrillos())
+		assert.equals(384 , obra.canios())
+		assert.equals(7960 , obra.fosforos())
+		assert.equals(470 , obra.arandelas())
+	}
+}
