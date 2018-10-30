@@ -71,13 +71,11 @@ class Obra {
 	}
 	
 	method iniciarJornada() {
-		if (plantilla.size() > 0) {
-			plantilla.forEach({obrero => 
-				if (!obrero.estaDeLicencia() ) {
-					obrero.trabaja(self)
-				}
-			})	
+		if (self.obrerosDisponibles().isEmpty()) {
+			self.error("No hay obreros disponibles para trabajar.")
 		}
+		
+		self.obrerosDisponibles().forEach({ obrero => obrero.trabaja(self) })
 	}
 	
 	method consumirLadrillo(_ladrillo) {
@@ -114,9 +112,5 @@ class Obra {
 	
 	method consumirCinta(_cinta) {
 		cinta = cinta - _cinta
-	}
-	
-	method desperdicio() {
-		
 	}
 }

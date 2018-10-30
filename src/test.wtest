@@ -16,15 +16,29 @@ describe "testeando" {
 		obra.agregarObrero(gasista2)
 		obra.agregarObrero(plomero1)
 		albanil1.tomarLicencia()
+		
 		obra.setLadrillos(1000)
 		obra.setCanios(400)
 		obra.setFosforos(8000)
 		obra.setArandelas(500)
+		
 		obra.iniciarJornada()
 		
 		assert.equals(900 , obra.ladrillos())
 		assert.equals(384 , obra.canios())
 		assert.equals(7960 , obra.fosforos())
 		assert.equals(470 , obra.arandelas())
+	}
+	
+	test "La obra falla si no tiene obreros disponibles." {
+		var albanil2 = new Albanil()
+		var gasista1 = new Gasista()
+		var gasista2 = new Gasista()
+		var plomero1 = new Plomero()
+		var obra = new Obra()
+		
+		[albanil2, gasista1, gasista2, plomero1].forEach{ obr => obr.estaDeLicencia() }
+		
+		assert.throwsException { obra.iniciarJornada() }
 	}
 }
