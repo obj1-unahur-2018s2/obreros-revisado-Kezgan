@@ -2,6 +2,7 @@ import obra.*
 
 class Obrero {
 	var bLicencia = false
+	var jornalesAdeudados = 0
 	
 	method estaDeLicencia() {
 		return bLicencia
@@ -15,9 +16,16 @@ class Obrero {
 		bLicencia = false
 	}
 	
-	method trabaja(_obra)	
+	method trabaja(_obra) {
+		jornalesAdeudados = jornalesAdeudados + 1
+	}
 	
-	// agregar diasAdeudados++ en el metodo abstracto
+	method debeCobrar()
+	
+	method cobrar(obra) {
+		obra.descontar(self.debeCobrar())
+		jornalesAdeudados = 0
+	}
 }
 
 class Albanil inherits Obrero {
@@ -27,7 +35,11 @@ class Albanil inherits Obrero {
 	override method trabaja(_obra) {
 		_obra.consumirLadrillo(consumeLadrillo)
 		//_obra.aportarPared(aportaPared)
-		//super(_obra)
+		super(_obra)
+	}
+	
+	override method debeCobrar() {
+		return jornalesAdeudados * uocra.jornalAlbanil()
 	}
 }
 
@@ -40,7 +52,11 @@ class Gasista inherits Obrero {
 		_obra.consumirCanio(consumeCanio)
 		_obra.consumirFosforo(consumeFosforo)
 		//_obra.aportarCanio(aportaCanio)
-		//super(_obra)
+		super(_obra)
+	}
+	
+	override method debeCobrar() {
+		return jornalesAdeudados * uocra.jornalGasista()
 	}
 }
 
@@ -55,7 +71,11 @@ class Plomero inherits Obrero {
 		_obra.consumirArandela(consumeArandela)
 		//_obra.aportarCanio(aportaCanio)
 		desperdicio = desperdicio + 1
-		//super(_obra)
+		super(_obra)
+	}
+	
+	override method debeCobrar() {
+		return jornalesAdeudados * uocra.jornalPlomero()
 	}
 }
 
@@ -68,6 +88,31 @@ class Electricista inherits Obrero {
 		_obra.consumirCable(consumeCable)
 		_obra.consumirCinta(consumeCinta)
 		//_obra.aportarCable(aportaCable)
-		//super(_obra)
+		super(_obra)
+	}
+	
+	override method debeCobrar() {
+		return jornalesAdeudados * uocra.jornalElectricista()
+	}
+}
+
+object uocra {
+	
+	var obrerosRegistrados
+	
+	method jornalAlbanil() {
+		return 2000
+	}
+	
+	method jornalGasista() {
+		return 3000
+	}
+	
+	method jornalPlomero() {
+		return 3000
+	}
+	
+	method jornalElectricista() {
+		return 3500
 	}
 }

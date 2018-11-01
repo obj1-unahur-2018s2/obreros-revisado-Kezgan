@@ -76,6 +76,7 @@ class Obra {
 		}
 		
 		self.obrerosDisponibles().forEach({ obrero => obrero.trabaja(self) })
+		
 	}
 	
 	method consumirLadrillo(_ladrillo) {
